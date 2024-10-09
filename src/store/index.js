@@ -11,6 +11,11 @@ export default new Vuex.Store({
   mutations: {
   },
   actions: {
+    async showInfo () {
+      const snap = await fetch('https://6a334d4f8b40d716.mokky.dev/stepbystep')
+      const data = await snap.json()
+      console.log(data)
+    }
   },
   modules: {
   }
