@@ -1,12 +1,10 @@
 <template>
-  <div id="app" class="w-4/5 m-auto bg-white h-screen rounded-xl shadow-xl mt-10">
-
-  </div>
+    <header>
+        <div>
+            <img src="" alt="Logo">
+        </div>
+    </header>
 </template>
-
-<style>
-
-</style>
 
 <script>
 export default {
