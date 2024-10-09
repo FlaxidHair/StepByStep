@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="w-4/5 m-auto bg-white h-screen rounded-xl shadow-xl mt-10">
-
+    <Header></Header>
   </div>
 </template>
 
@@ -9,6 +9,7 @@
 </style>
 
 <script>
+import Header from './components/AppHeader.vue'
 export default {
   data () {
     return {
@@ -21,6 +22,9 @@ export default {
       const data = await snap.json()
       console.log(data)
     }
+  },
+  components: {
+    Header
   }
 }
 </script>
