@@ -1,6 +1,10 @@
 <template>
-  <div id="app" class="w-4/5 m-auto bg-white h-screen rounded-xl shadow-xl mt-10">
+  <div id="app" class="w-4/5 m-auto bg-white rounded-xl shadow-xl mt-10">
     <Header></Header>
+    <div class="p-10">
+<h2 class="text-3xl font-bold mb-8">Все кроссовки</h2>
+<CardList></CardList>
+  </div>
   </div>
 </template>
 
@@ -10,21 +14,20 @@
 
 <script>
 import Header from './components/AppHeader.vue'
+import CardList from './components/AppCardList.vue'
 export default {
   data () {
     return {
-      info: '1231232'
     }
   },
   methods: {
-    async showInfo () {
-      const snap = await fetch('https://6a334d4f8b40d716.mokky.dev/stepbystep')
-      const data = await snap.json()
-      console.log(data)
-    }
   },
   components: {
-    Header
+    Header,
+    CardList
+  },
+  mounted () {
+    this.$store.dispatch('showInfo')
   }
 }
 </script>

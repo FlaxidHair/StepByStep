@@ -5,17 +5,21 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    cartMoney: 0
+    cartMoney: 0,
+    items: []
   },
   getters: {
   },
   mutations: {
+    SET_ITEMS (state, items) {
+      state.items = items
+    }
   },
   actions: {
     async showInfo () {
       const snap = await fetch('https://6a334d4f8b40d716.mokky.dev/stepbystep')
       const data = await snap.json()
-      console.log(data)
+      this.commit('SET_ITEMS', data)
     }
   },
   modules: {
