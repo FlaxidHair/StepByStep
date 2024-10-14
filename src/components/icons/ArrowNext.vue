@@ -1,5 +1,5 @@
 <template>
-    <div class="cursor-pointer opacity-30 rotate-180 hover:opacity-100 hover:shadow-md p-2 rounded-md transition active:-translate-y-2">
+    <div @click="$store.commit('openCart')" class="cursor-pointer opacity-30 rotate-180 hover:opacity-100 hover:-translate-x-1 p-3 rounded-md transition active:-translate-x-3">
         <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1 7H14.7143" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M8.71436 1L14.7144 7L8.71436 13" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

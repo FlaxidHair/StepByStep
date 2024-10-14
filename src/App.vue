@@ -19,7 +19,6 @@
 </template>
 
 <style>
-
 </style>
 
 <script>
@@ -29,9 +28,14 @@ import Drawer from './components/AppDrawer.vue'
 export default {
   data () {
     return {
+      items: [],
+      nextId: 1
     }
   },
   methods: {
+    addItem () {
+      this.items.push({ id: this.nextId++, text: `Элемент ${this.nextId}` })
+    }
   },
   components: {
     Header,

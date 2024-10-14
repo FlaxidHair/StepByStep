@@ -8,13 +8,23 @@ export default new Vuex.Store({
     cartMoney: 0,
     items: [],
     optionsFilter: ['По названию', 'По цене (дешевые)', 'По цене (дорогие)'],
-    selectedFilter: 'По названию'
+    selectedFilter: 'По названию',
+    isShowCart: false
   },
   getters: {
+    cartItems (state) {
+      const cartData = state.items.filter((el) => {
+        return el.isAdded
+      })
+      return cartData
+    }
   },
   mutations: {
     SET_ITEMS (state, items) {
       state.items = items
+    },
+    openCart (state) {
+      state.isShowCart = !state.isShowCart
     }
   },
   actions: {
