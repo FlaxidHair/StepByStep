@@ -6,7 +6,7 @@
         <div class="flex justify-between mt-5">
           <div class="flex flex-col">
             <span class="text-gray">Цена:</span>
-            <b>{{ textPrice }}</b>
+            <b>{{ textPrice + ' руб.' }}</b>
           </div>
           <img :src="imagePlus" @click="onClickAdded()" class="active:-translate-y-2 rounded-lg h-full hover:shadow-md transition" alt="Plus">
         </div>

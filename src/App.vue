@@ -7,9 +7,9 @@
         <h2 class="text-3xl font-bold">Все кроссовки</h2>
         <div class="relative flex">
           <img src="/search.svg" alt="Search" class="absolute left-3 top-3">
-          <input type="text" placeholder="Поиск" class="border border-gray-light rounded-md py-2 pl-11 pr-4 outline-none focus:border-gray">
+          <input type="text" @input="timeoutRequest" v-model="searchValue" placeholder="Поиск" class="border border-gray-light rounded-md py-2 pl-11 pr-4 outline-none focus:border-gray">
         </div>
-          <select @change="filter()" v-model="$store.state.selectedFilter" class="py-3 px-5 border rounded-lg border-gray-light focus:border-gray outline-none">
+          <select @change="filter()" v-model="selectedFilter" class="py-3 px-5 border rounded-lg border-gray-light focus:border-gray outline-none">
           <option v-for="filter in $store.state.optionsFilter" :key="filter.title" :value="filter.value">{{filter.title}}</option>
         </select>
       </div>
@@ -25,11 +25,25 @@ import Drawer from './components/AppDrawer.vue'
 export default {
   data () {
     return {
+      selectedFilter: 'name',
+      searchValue: '',
+      timeout: null
     }
   },
   methods: {
+    timeoutRequest () {
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(() => {
+        this.search()
+      }, 750)
+    },
     async filter () {
-      const snap = await fetch('https://6a334d4f8b40d716.mokky.dev/stepbystep?sortBy=' + this.$store.state.selectedFilter)
+      const snap = await fetch(`https://6a334d4f8b40d716.mokky.dev/stepbystep?sortBy=${this.selectedFilter}`)
+      const meta = await snap.json()
+      this.$store.state.items = meta
+    },
+    async search () {
+      const snap = await fetch(`https://6a334d4f8b40d716.mokky.dev/stepbystep?title=*${this.searchValue}*`)
       const meta = await snap.json()
       this.$store.state.items = meta
     }
