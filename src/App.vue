@@ -34,16 +34,11 @@ export default {
     timeoutRequest () {
       clearTimeout(this.timeout)
       this.timeout = setTimeout(() => {
-        this.search()
+        this.filter()
       }, 750)
     },
     async filter () {
-      const snap = await fetch(`https://6a334d4f8b40d716.mokky.dev/stepbystep?sortBy=${this.selectedFilter}`)
-      const meta = await snap.json()
-      this.$store.state.items = meta
-    },
-    async search () {
-      const snap = await fetch(`https://6a334d4f8b40d716.mokky.dev/stepbystep?title=*${this.searchValue}*`)
+      const snap = await fetch(`https://6a334d4f8b40d716.mokky.dev/stepbystep?title=*${this.searchValue}*&sortBy=${this.selectedFilter}`)
       const meta = await snap.json()
       this.$store.state.items = meta
     }
