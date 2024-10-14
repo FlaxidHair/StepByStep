@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="w-4/5 m-auto bg-white rounded-xl shadow-xl mt-10">
+  <Drawer></Drawer>
     <Header></Header>
     <div class="p-10">
       <div class="flex justify-between items-center mb-8 flex-wrap gap-y-3">
@@ -24,6 +25,7 @@
 <script>
 import Header from './components/AppHeader.vue'
 import CardList from './components/AppCardList.vue'
+import Drawer from './components/AppDrawer.vue'
 export default {
   data () {
     return {
@@ -33,7 +35,8 @@ export default {
   },
   components: {
     Header,
-    CardList
+    CardList,
+    Drawer
   },
   mounted () {
     this.$store.dispatch('showInfo')
