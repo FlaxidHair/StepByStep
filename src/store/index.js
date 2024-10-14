@@ -17,6 +17,11 @@ export default new Vuex.Store({
         return el.isAdded
       })
       return cartData
+    },
+    cartMoney (state, getters) {
+      return getters.cartItems.reduce((acc, el) => {
+        return acc + el.price
+      }, 0)
     }
   },
   mutations: {
