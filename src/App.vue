@@ -9,17 +9,14 @@
           <img src="/search.svg" alt="Search" class="absolute left-3 top-3">
           <input type="text" placeholder="Поиск" class="border border-gray-light rounded-md py-2 pl-11 pr-4 outline-none focus:border-gray">
         </div>
-          <select v-model="$store.state.selectedFilter" class="py-3 px-5 border rounded-lg border-gray-light focus:border-gray outline-none">
-          <option v-for="filter in $store.state.optionsFilter" :key="filter">{{filter}}</option>
+          <select @change="filter()" v-model="$store.state.selectedFilter" class="py-3 px-5 border rounded-lg border-gray-light focus:border-gray outline-none">
+          <option v-for="filter in $store.state.optionsFilter" :key="filter.title" :value="filter.value">{{filter.title}}</option>
         </select>
       </div>
 <CardList></CardList>
   </div>
   </div>
 </template>
-
-<style>
-</style>
 
 <script>
 import Header from './components/AppHeader.vue'
@@ -28,13 +25,13 @@ import Drawer from './components/AppDrawer.vue'
 export default {
   data () {
     return {
-      items: [],
-      nextId: 1
     }
   },
   methods: {
-    addItem () {
-      this.items.push({ id: this.nextId++, text: `Элемент ${this.nextId}` })
+    async filter () {
+      const snap = await fetch('https://6a334d4f8b40d716.mokky.dev/stepbystep?sortBy=' + this.$store.state.selectedFilter)
+      const meta = await snap.json()
+      this.$store.state.items = meta
     }
   },
   components: {

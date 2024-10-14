@@ -7,8 +7,8 @@ export default new Vuex.Store({
   state: {
     cartMoney: 0,
     items: [],
-    optionsFilter: ['По названию', 'По цене (дешевые)', 'По цене (дорогие)'],
-    selectedFilter: 'По названию',
+    optionsFilter: [{ title: 'По названию', value: 'name' }, { title: 'По цене (дешевые)', value: 'price' }, { title: 'По цене (дорогие)', value: '--price' }],
+    selectedFilter: 'name',
     isShowCart: false
   },
   getters: {
