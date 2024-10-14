@@ -33,8 +33,6 @@ export default {
       item.isFavorite = !item.isFavorite
       await axios.patch(`https://6a334d4f8b40d716.mokky.dev/stepbystep/${item.id}`, item)
     }
-  },
-  computed: {
   }
 }
 </script>

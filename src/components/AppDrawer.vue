@@ -7,7 +7,7 @@
                 <ArrowNext class="mr-auto"></ArrowNext>
                 <h2 class="text-2xl mr-auto font-bold">Корзина</h2>
             </div>
-            <div>
+            <div class="flex flex-col gap-3">
                 <CartItem></CartItem>
             </div>
         </div>

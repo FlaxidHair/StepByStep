@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <div class="flex flex-col gap-3">
     <div v-for="item in $store.getters.cartItems" :key="item.id" class="w-full flex border rounded-xl p-4 border-gray-light">
-        <img :src="item.imageUrl" class="w-3/12" alt="Sneacker">
-        <div>
+        <img :src="item.imageUrl" class="w-3/12 mr-2" alt="Sneacker">
+        <div class="flex flex-col gap-2">
             <p>{{ item.title }}</p>
             <b>{{ item.price + ' руб.'}}</b>
         </div>
