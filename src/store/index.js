@@ -1,3 +1,4 @@
+import axios from 'axios'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -28,9 +29,8 @@ export default new Vuex.Store({
   },
   actions: {
     async showInfo () {
-      const snap = await fetch('https://6a334d4f8b40d716.mokky.dev/stepbystep')
-      const data = await snap.json()
-      this.commit('SET_ITEMS', data)
+      const snap = await axios.get('https://6a334d4f8b40d716.mokky.dev/stepbystep')
+      this.commit('SET_ITEMS', snap.data)
     }
   },
   modules: {

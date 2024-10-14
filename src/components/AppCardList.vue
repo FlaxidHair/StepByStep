@@ -1,36 +1,40 @@
 <template>
 <div class="grid grid-cols-4 gap-3">
   <div v-for="item in $store.state.items" :key="item.id">
-      <Card :textName="item.title" :imageUrl="item.imageUrl" :textPrice="item.price" :isFavorite="item.isFavorite" :onClickAdded="onClickAdded" :onClickFavorite="onClickFavorite" :isAdded="item.isAdded"></Card>
+    <div class="relative m-10 bg-white border border-opacity-40 border-gray-light rounded-2xl p-8 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition">
+        <img :src="item.isFavorite ? '/like-2.svg' : '/like-1.svg'" @click="onClickFavorite(item)" class="absolute top-8 left-8 cursor-pointer active:-translate-y-2 rounded-lg hover:shadow-md transition" alt="like">
+        <img :src="item.imageUrl" alt="Sneacker">
+        <p>{{ item.title }}</p>
+        <div class="flex justify-between mt-5">
+          <div class="flex flex-col">
+            <span class="text-gray">Цена:</span>
+            <b>{{ item.price + ' руб.' }}</b>
+          </div>
+          <img :src="item.isAdded ? '/checked.svg' : '/plus.svg'" @click="onClickAdded(item)" class="active:-translate-y-2 rounded-lg h-full hover:shadow-md transition" alt="Plus">
+        </div>
+      </div>
   </div>
 </div>
 </template>
 
 <script>
-import Card from './AppCard.vue'
-
+import axios from 'axios'
 export default {
   data () {
     return {
     }
   },
   methods: {
-    onClickAdded (item) {
-      item = !item
-      console.log(item)
-      // await fetch('https://6a334d4f8b40d716.mokky.dev/stepbystep', {
-      //   method: 'PATCH',
-      //   body: JSON.stringify(this.$store.state.items)
-      // })
+    async onClickAdded (item) {
+      item.isAdded = !item.isAdded
+      await axios.patch(`https://6a334d4f8b40d716.mokky.dev/stepbystep/${item.id}`, item)
     },
-    onClickFavorite () {
-      alert(1)
+    async onClickFavorite (item) {
+      item.isFavorite = !item.isFavorite
+      await axios.patch(`https://6a334d4f8b40d716.mokky.dev/stepbystep/${item.id}`, item)
     }
   },
   computed: {
-  },
-  components: {
-    Card
   }
 }
 </script>

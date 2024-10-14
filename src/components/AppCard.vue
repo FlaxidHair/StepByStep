@@ -8,7 +8,7 @@
             <span class="text-gray">Цена:</span>
             <b>{{ textPrice + ' руб.' }}</b>
           </div>
-          <img :src="imagePlus" @click="onClickAdded()" class="active:-translate-y-2 rounded-lg h-full hover:shadow-md transition" alt="Plus">
+          <img :src="imagePlus" class="active:-translate-y-2 rounded-lg h-full hover:shadow-md transition" alt="Plus">
         </div>
       </div>
 </template>

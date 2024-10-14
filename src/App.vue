@@ -22,6 +22,8 @@
 import Header from './components/AppHeader.vue'
 import CardList from './components/AppCardList.vue'
 import Drawer from './components/AppDrawer.vue'
+import axios from 'axios'
+
 export default {
   data () {
     return {
@@ -38,9 +40,8 @@ export default {
       }, 750)
     },
     async filter () {
-      const snap = await fetch(`https://6a334d4f8b40d716.mokky.dev/stepbystep?title=*${this.searchValue}*&sortBy=${this.selectedFilter}`)
-      const meta = await snap.json()
-      this.$store.state.items = meta
+      const snap = await axios(`https://6a334d4f8b40d716.mokky.dev/stepbystep?title=*${this.searchValue}*&sortBy=${this.selectedFilter}`)
+      this.$store.state.items = snap.data
     }
   },
   components: {
