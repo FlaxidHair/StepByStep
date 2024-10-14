@@ -1,7 +1,9 @@
 <template>
-<div class="grid grid-cols-4 gap-5">
-  <div  v-for="(item,index) in $store.state.items" :key="index">
-      <Card :textName="item.title" :imageUrl="item.imageUrl" :textPrice="item.price"></Card>
+<div class="grid grid-cols-4 gap-3">
+  <div v-for="(item,index) in $store.state.items" :key="index">
+    {{ item.isFavorite }}
+    {{ item.isAdded }}
+      <Card :textName="item.title" :imageUrl="item.imageUrl" :textPrice="item.price" :isFavorite="item.isFavorite" :onClickAdded="onClickAdded" :onClickFavorite="onClickFavorite" :isAdded="item.isAdded"></Card>
   </div>
 </div>
 </template>
@@ -15,6 +17,14 @@ export default {
     }
   },
   methods: {
+    onClickAdded () {
+      alert(1)
+    },
+    onClickFavorite () {
+      alert(1)
+    }
+  },
+  computed: {
   },
   components: {
     Card
