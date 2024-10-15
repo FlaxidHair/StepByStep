@@ -8,21 +8,22 @@ export default new Vuex.Store({
   state: {
     cartMoney: 0,
     items: [],
+    itemsFavorite: [],
+    cartItems: JSON.parse(localStorage.getItem('cartItems')),
     optionsFilter: [{ title: 'По названию', value: 'name' }, { title: 'По цене (дешевые)', value: 'price' }, { title: 'По цене (дорогие)', value: '-price' }],
-    isShowCart: false
+    isShowCart: false,
+    userIdCookie: null
   },
   getters: {
-    cartItems (state) {
-      const cartData = state.items.filter((el) => {
-        return el.isAdded
-      })
-      return cartData
-    },
-    cartMoney (state, getters) {
-      return getters.cartItems.reduce((acc, el) => {
-        return acc + el.price
-      }, 0)
-    }
+    // cartItems (state) {
+    //   return JSON.parse(localStorage.getItem('cartItems'))
+    // }
+    // },
+    // cartMoney (state, getters) {
+    //   return getters.cartItems.reduce((acc, el) => {
+    //     return acc + el.price
+    //   }, 0)
+    // }
   },
   mutations: {
     SET_ITEMS (state, items) {
