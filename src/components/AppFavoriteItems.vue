@@ -1,12 +1,14 @@
 <template>
     <div class="h-full pb-40">
-        <h2 class="text-2xl font-bold mt-10 ml-10">Мои закладки</h2>
+      <div class="flex items-center mt-10 ml-10 gap-3">
+        <RouterLink to="/"><img src="/arrow-next.svg" class="bg-gray-light transition hover:-translate-y-1 active:scale-110 p-2 rounded-xl rotate-180" alt="arrowBack"></RouterLink><h2 class="text-2xl font-bold">Мои закладки</h2>
+      </div>
         <Transition>
             <div class="w-full h-full flex flex-col gap-2 items-center mt-32" v-if="!$store.state.itemsFavorite.length">
                 <img src="/emoji-1.png" alt="emojiEmpty">
                 <h2 class="font-bold text-2xl">Закладок нет</h2>
                 <p class="text-gray">Вы ничего не добавляли в закладки</p>
-                <RouterLink to="/"><button class="transition hover:-translate-y-1 active:scale-110 rounded-lg outline-none text-white p-3 flex items-center gap-3 bg-green"><img src="/arrow-next.svg" alt="ArrowBack" class="rotate-180">Вернуться назад</button></RouterLink>
+                <RouterLink to="/"><button class="transition hover:-translate-y-1 active:scale-110 mt-5 rounded-lg outline-none text-white p-3 flex items-center gap-3 bg-green"><img src="/arrow-next.svg" alt="ArrowBack" class="rotate-180">Вернуться назад</button></RouterLink>
         </div>
         </Transition>
 
