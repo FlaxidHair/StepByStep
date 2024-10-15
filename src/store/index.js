@@ -24,6 +24,9 @@ export default new Vuex.Store({
         return 0
       }
     },
+    getPerCentCount (state, getters) {
+      return Math.floor(getters.cartMoney * 0.05)
+    },
     getItemsFavorite (state) {
       state.items.forEach((el) => {
         if (el.favoriteId.find((id) => id === state.userIdCookie)) {
@@ -51,7 +54,7 @@ export default new Vuex.Store({
         state.cartItems.push(item)
       }
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
-      this.$store.state.cartItems = JSON.parse(localStorage.getItem('cartItems'))
+      state.cartItems = JSON.parse(localStorage.getItem('cartItems'))
     },
     async onClickFavorite (state, item) {
       if (!item.favoriteId.includes(state.userIdCookie)) {
