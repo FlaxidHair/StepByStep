@@ -12,7 +12,9 @@ export default new Vuex.Store({
     cartItems: JSON.parse(localStorage.getItem('cartItems')) || [],
     optionsFilter: [{ title: 'По названию', value: 'name' }, { title: 'По цене (дешевые)', value: 'price' }, { title: 'По цене (дорогие)', value: '-price' }],
     isShowCart: false,
-    userIdCookie: null
+    userIdCookie: null,
+    orderCheck: false,
+    generateId: 0
   },
   getters: {
     cartMoney (state) {
@@ -38,6 +40,9 @@ export default new Vuex.Store({
         }
       })
       return state.itemsFavorite
+    },
+    generateIdOrder (state) {
+      return '#' + Math.floor(Math.random() * 1000) + state.generateId
     }
   },
   mutations: {
@@ -46,6 +51,7 @@ export default new Vuex.Store({
     },
     openCart (state) {
       state.isShowCart = !state.isShowCart
+      state.orderCheck = false
     },
     onClickAdded (state, item) {
       if (state.cartItems.find(product => item.id === product.id)) {
@@ -56,25 +62,40 @@ export default new Vuex.Store({
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
       state.cartItems = JSON.parse(localStorage.getItem('cartItems'))
     },
-    async onClickFavorite (state, item) {
+    onClickFavorite (state, item) {
       if (!item.favoriteId.includes(state.userIdCookie)) {
         item.favoriteId.push(state.userIdCookie)
+        this.dispatch('addFavoriteItem', item)
       } else {
         state.itemsFavorite.splice(state.itemsFavorite.indexOf(item), 1)
         item.favoriteId.splice(item.favoriteId.indexOf(state.userIdCookie), 1)
+        this.dispatch('addFavoriteItem', item)
       }
-      await axios.patch(
-        `https://6a334d4f8b40d716.mokky.dev/stepbystep/${item.id}`,
-        item
-      )
+    },
+    getOrder (state) {
+      const data = this.dispatch('addOrder')
+      if (data) {
+        state.orderCheck = true
+        state.cartItems = []
+        localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
+        state.generateId++
+      }
     }
   },
   actions: {
     async showInfo () {
       const snap = await axios.get('https://6a334d4f8b40d716.mokky.dev/stepbystep')
       this.commit('SET_ITEMS', snap.data)
+    },
+    async addFavoriteItem (_, item) {
+      await axios.patch(
+        `https://6a334d4f8b40d716.mokky.dev/stepbystep/${item.id}`,
+        item
+      )
+    },
+    async addOrder ({ _, state }) {
+      const data = await axios.post('https://6a334d4f8b40d716.mokky.dev/StepByStepOrders', { items: state.cartItems, userId: state.userIdCookie })
+      return data
     }
-  },
-  modules: {
   }
 })

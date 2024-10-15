@@ -7,20 +7,29 @@
                 <ArrowNext class="mr-auto"></ArrowNext>
                 <h2 class="text-2xl mr-auto font-bold">Корзина</h2>
             </div>
-            <div class="flex flex-col items-center justify-center text-center gap-2 h-full" v-if="!$store.state.cartItems.length">
+            <div class="flex flex-col items-center justify-center text-center gap-2 h-full" v-if="!$store.state.cartItems.length && !$store.state.orderCheck">
               <img src="/package-icon.png" alt="Empty Cart">
               <h2 class="font-bold text-2xl">Корзина пустая</h2>
               <p class="text-gray">Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.</p>
               <button @click="$store.commit('openCart')" class="transition hover:-translate-y-1 active:scale-110 mt-5 rounded-lg outline-none text-white p-3 flex items-center gap-3 bg-green"><img src="/arrow-next.svg" alt="ArrowBack" class="rotate-180">Вернуться назад</button>
           </div>
             <div class="flex flex-col gap-3 h-full justify-between">
-              <div class="overflow-y-auto">
+              <div class="overflow-y-auto shadow-sm rounded-xl">
                 <CartItem class="w-full"></CartItem>
               </div>
-                <div v-if="$store.state.cartItems.length" class="flex flex-col gap-3 mb-16">
-              <p class="flex flex-nowrap text-nowrap">Итого: <span class="border mb-1 mx-1 border-gray-light w-full h-0 self-end border-dotted"></span>  <span class="font-bold text-xl">{{ $store.getters.cartMoney + $store.getters.getPerCentCount + ' руб.' }}</span></p>
+                <div v-if="$store.state.cartItems.length && !$store.state.orderCheck" class="flex flex-col gap-3 mb-16">
+              <p class="flex flex-nowrap text-nowrap">Итого: <span class="border mb-1 mx-1 border-gray-light w-full h-0 self-end border-dotted"></span><span class="font-bold text-xl">{{ $store.getters.cartMoney + $store.getters.getPerCentCount + ' руб.' }}</span></p>
               <p class="flex flex-nowrap text-nowrap">Налог 5%: <span class="border mb-1 mx-1 border-gray-light w-full h-0 self-end border-dotted"></span>  <span class="font-bold text-xl">{{ $store.getters.getPerCentCount + ' руб.' }}</span></p>
-              <button @click="$store.commit('openCart')" class="transition justify-center hover:-translate-y-1 active:scale-110 rounded-2xl outline-none text-white p-3 flex  gap-3 bg-green">Оформить заказ<img src="/arrow-next.svg" alt="ArrowBack" class=""></button>
+              <form @submit.prevent="$store.commit('getOrder')">
+              <input type="text" placeholder="Введите свой Email"  required class="border border-gray-light outline-none focus:border-gray p-3 rounded-lg">
+              <button type="submit" class="transition mt-2 justify-center hover:-translate-y-1 active:scale-110 rounded-2xl outline-none text-white p-3 flex  gap-3 bg-green">Оформить заказ<img src="/arrow-next.svg" alt="ArrowBack" class=""></button>
+            </form>
+
+            </div>
+            <div v-if="$store.state.orderCheck" class="flex flex-col justify-center h-full w-full items-center gap-3 mb-16">
+              <img src="/order-success-icon.png" class="h-1/4 w-1/2 mb-2" alt="Order Success">
+              <h2 class="text-2xl font-bold text-green">Заказ оформлен!</h2>
+              <p class="text-gray">Ваш заказ {{ $store.getters.generateIdOrder }} оформлен и будет передан в обработку!</p>
             </div>
             </div>
         </div>
@@ -33,6 +42,7 @@ import ArrowNext from './icons/ArrowNext.vue'
 import CartItem from './AppCartItems.vue'
 export default {
   methods: {
+
   },
   components: {
     ArrowNext,

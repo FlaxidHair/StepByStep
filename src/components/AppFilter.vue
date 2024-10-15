@@ -1,6 +1,6 @@
 <template>
         <div class="p-10">
-      <div class="flex justify-between items-center mb-8 flex-wrap gap-y-3">
+      <div class="flex justify-between items-center xl:mb-8 lg:mb-6 md:mb-4 sm:mb-2 mb-2 flex-wrap gap-y-3">
         <h2 class="text-3xl font-bold">Все кроссовки</h2>
         <div class="relative flex">
           <img src="/search.svg" alt="Search" class="absolute left-3 top-3">
