@@ -9,7 +9,7 @@ export default new Vuex.Store({
     cartMoney: 0,
     items: [],
     itemsFavorite: [],
-    cartItems: JSON.parse(localStorage.getItem('cartItems')),
+    cartItems: JSON.parse(localStorage.getItem('cartItems')) || [],
     optionsFilter: [{ title: 'По названию', value: 'name' }, { title: 'По цене (дешевые)', value: 'price' }, { title: 'По цене (дорогие)', value: '-price' }],
     isShowCart: false,
     userIdCookie: null

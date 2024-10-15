@@ -1,4 +1,6 @@
 <template>
+  <div class="">
+  <FilterComponent></FilterComponent>
   <transition-group tag="div" name="fade" class="grid grid-cols-4 gap-3">
     <div v-for="item in $store.state.items" :key="item.id">
       <div
@@ -18,7 +20,7 @@
             <b>{{ item.price + " руб." }}</b>
           </div>
           <img
-            :src="item.isAdded ? '/checked.svg' : '/plus.svg'"
+            :src="$store.state.cartItems.find(product => item.id === product.id) ? '/checked.svg' : '/plus.svg'"
             @click="onClickAdded(item)"
             class="active:-translate-y-2 rounded-lg h-full hover:shadow-md transition"
             alt="Plus"
@@ -27,10 +29,12 @@
       </div>
     </div>
   </transition-group>
+</div>
 </template>
 
 <script>
 import axios from 'axios'
+import FilterComponent from './AppFilter.vue'
 export default {
   data () {
     return {}
@@ -57,6 +61,9 @@ export default {
         item
       )
     }
+  },
+  components: {
+    FilterComponent
   }
 }
 </script>
