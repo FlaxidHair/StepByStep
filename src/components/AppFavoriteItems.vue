@@ -1,6 +1,15 @@
 <template>
-    <div>
-        <h2 class="text-2xl font-bold">Мои закладки</h2>
+    <div class="h-full pb-40">
+        <h2 class="text-2xl font-bold mt-10 ml-10">Мои закладки</h2>
+        <Transition>
+            <div class="w-full h-full flex flex-col gap-2 items-center mt-32" v-if="!$store.state.itemsFavorite.length">
+                <img src="/emoji-1.png" alt="emojiEmpty">
+                <h2 class="font-bold text-2xl">Закладок нет</h2>
+                <p class="text-gray">Вы ничего не добавляли в закладки</p>
+                <RouterLink to="/"><button class="transition hover:-translate-y-1 active:scale-110 rounded-lg outline-none text-white p-3 flex items-center gap-3 bg-green"><img src="/arrow-next.svg" alt="ArrowBack" class="rotate-180">Вернуться назад</button></RouterLink>
+        </div>
+        </Transition>
+
         <transition-group tag="div" name="fade" class="grid grid-cols-4 gap-3">
     <div v-for="item in $store.getters.getItemsFavorite" :key="item.id">
       <div
@@ -12,7 +21,6 @@
           class="absolute top-8 left-8 cursor-pointer active:-translate-y-2 rounded-lg hover:shadow-md transition"
           alt="like"
         />
-        {{  }}
         <img :src="item.imageUrl" alt="Sneacker" />
         <p>{{ item.title }}</p>
         <div class="flex justify-between mt-5">
@@ -34,7 +42,10 @@
 </template>
 
 <script>
+import { RouterLink } from 'vue-router'
 export default {
-
+  comments: {
+    RouterLink
+  }
 }
 </script>
