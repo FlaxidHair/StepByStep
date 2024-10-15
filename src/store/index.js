@@ -15,15 +15,15 @@ export default new Vuex.Store({
     userIdCookie: null
   },
   getters: {
-    // cartItems (state) {
-    //   return JSON.parse(localStorage.getItem('cartItems'))
-    // }
-    // },
-    // cartMoney (state, getters) {
-    //   return getters.cartItems.reduce((acc, el) => {
-    //     return acc + el.price
-    //   }, 0)
-    // }
+    cartMoney (state) {
+      if (state.cartItems) {
+        return state.cartItems.reduce((acc, el) => {
+          return acc + el.price
+        }, 0)
+      } else {
+        return 0
+      }
+    }
   },
   mutations: {
     SET_ITEMS (state, items) {
