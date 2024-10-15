@@ -1,7 +1,7 @@
 <template>
   <div>
   <FilterComponent></FilterComponent>
-  <transition-group tag="div" name="fade" class="grid grid-cols-4 gap-3">
+  <transition-group tag="div" name="fade" class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 lg  gap-3">
     <div v-for="item in $store.state.items" :key="item.id">
       <div
         class="relative m-10 bg-white border border-opacity-40 border-gray-light rounded-2xl p-8 cursor-pointer hover:-translate-y-2 hover:shadow-xl transition"

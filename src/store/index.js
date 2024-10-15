@@ -58,7 +58,6 @@ export default new Vuex.Store({
         item.favoriteId.push(state.userIdCookie)
       } else {
         state.itemsFavorite.splice(state.itemsFavorite.indexOf(item), 1)
-        console.log(state.itemsFavorite)
         item.favoriteId.splice(item.favoriteId.indexOf(state.userIdCookie), 1)
       }
       await axios.patch(
