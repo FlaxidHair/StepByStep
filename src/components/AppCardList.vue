@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
   <FilterComponent></FilterComponent>
   <transition-group tag="div" name="fade" class="grid grid-cols-4 gap-3">
     <div v-for="item in $store.state.items" :key="item.id">
@@ -8,7 +8,7 @@
       >
         <img
           :src="item.favoriteId.includes($store.state.userIdCookie) ? '/like-2.svg' : '/like-1.svg'"
-          @click="onClickFavorite(item)"
+          @click="$store.commit('onClickFavorite',item)"
           class="absolute top-8 left-8 cursor-pointer active:-translate-y-2 rounded-lg hover:shadow-md transition"
           alt="like"
         />
@@ -21,7 +21,7 @@
           </div>
           <img
             :src="$store.state.cartItems.find(product => item.id === product.id) ? '/checked.svg' : '/plus.svg'"
-            @click="onClickAdded(item)"
+            @click="$store.commit('onClickAdded',item)"
             class="active:-translate-y-2 rounded-lg h-full hover:shadow-md transition"
             alt="Plus"
           />
@@ -33,34 +33,24 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import FilterComponent from './AppFilter.vue'
 export default {
   data () {
     return {}
   },
   methods: {
-    async onClickAdded (item) {
-      const cart = JSON.parse(localStorage.getItem('cartItems')) || []
-      if (cart.find(product => item.id === product.id)) {
-        cart.splice(cart.indexOf(item), 1)
-      } else {
-        cart.push(item)
-      }
-      localStorage.setItem('cartItems', JSON.stringify(cart))
-      this.$store.state.cartItems = JSON.parse(localStorage.getItem('cartItems'))
-    },
-    async onClickFavorite (item) {
-      if (!item.favoriteId.includes(this.$store.state.userIdCookie)) {
-        item.favoriteId.push(this.$store.state.userIdCookie)
-      } else {
-        item.favoriteId.splice(item.favoriteId.indexOf(this.$store.state.userIdCookie), 1)
-      }
-      await axios.patch(
-        `https://6a334d4f8b40d716.mokky.dev/stepbystep/${item.id}`,
-        item
-      )
-    }
+    // async onClickFavorite (item) {
+    //   if (!item.favoriteId.includes(this.$store.state.userIdCookie)) {
+    //     item.favoriteId.push(this.$store.state.userIdCookie)
+    //   } else {
+    //     item.favoriteId.splice(item.favoriteId.indexOf(this.$store.state.userIdCookie), 1)
+    //   }
+    //   await axios.patch(
+    //     `https://6a334d4f8b40d716.mokky.dev/stepbystep/${item.id}`,
+    //     item
+    //   )
+    // }
   },
   components: {
     FilterComponent

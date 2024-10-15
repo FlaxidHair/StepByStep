@@ -23,6 +23,18 @@ export default new Vuex.Store({
       } else {
         return 0
       }
+    },
+    getItemsFavorite (state) {
+      state.items.forEach((el) => {
+        if (el.favoriteId.find((id) => id === state.userIdCookie)) {
+          if (state.itemsFavorite.includes(el)) {
+            return state.itemsFavorite
+          } else {
+            state.itemsFavorite.push(el)
+          }
+        }
+      })
+      return state.itemsFavorite
     }
   },
   mutations: {
@@ -31,6 +43,28 @@ export default new Vuex.Store({
     },
     openCart (state) {
       state.isShowCart = !state.isShowCart
+    },
+    onClickAdded (state, item) {
+      if (state.cartItems.find(product => item.id === product.id)) {
+        state.cartItems.splice(state.cartItems.indexOf(item), 1)
+      } else {
+        state.cartItems.push(item)
+      }
+      localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
+      this.$store.state.cartItems = JSON.parse(localStorage.getItem('cartItems'))
+    },
+    async onClickFavorite (state, item) {
+      if (!item.favoriteId.includes(state.userIdCookie)) {
+        item.favoriteId.push(state.userIdCookie)
+      } else {
+        state.itemsFavorite.splice(state.itemsFavorite.indexOf(item), 1)
+        console.log(state.itemsFavorite)
+        item.favoriteId.splice(item.favoriteId.indexOf(state.userIdCookie), 1)
+      }
+      await axios.patch(
+        `https://6a334d4f8b40d716.mokky.dev/stepbystep/${item.id}`,
+        item
+      )
     }
   },
   actions: {
