@@ -8,10 +8,10 @@
                 <h2 class="text-2xl mr-auto font-bold">Корзина</h2>
             </div>
             <div class="flex flex-col items-center justify-center text-center gap-2 h-full" v-if="!$store.state.cartItems.length && !$store.state.orderCheck">
-              <img src="/package-icon.png" alt="Empty Cart">
+              <img src="./package-icon.png" alt="Empty Cart">
               <h2 class="font-bold text-2xl">Корзина пустая</h2>
               <p class="text-gray">Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.</p>
-              <button @click="$store.commit('openCart')" class="transition hover:-translate-y-1 active:scale-110 mt-5 rounded-lg outline-none text-white p-3 flex items-center gap-3 bg-green"><img src="/arrow-next.svg" alt="ArrowBack" class="rotate-180">Вернуться назад</button>
+              <button @click="$store.commit('openCart')" class="transition hover:-translate-y-1 active:scale-110 mt-5 rounded-lg outline-none text-white p-3 flex items-center gap-3 bg-green"><img src="./arrow-next.svg" alt="ArrowBack" class="rotate-180">Вернуться назад</button>
           </div>
             <div class="flex flex-col gap-3 h-full justify-between">
               <div class="overflow-y-auto shadow-sm rounded-xl">
@@ -23,12 +23,12 @@
               <form @submit.prevent="valid ? $store.commit('getOrder') : null">
               <input :class="{ 'border-orange focus:border-orange': !valid }" @input="validationInput()" type="text" v-model="$store.state.emailUser" placeholder="Введите свой Email"  required class="border w-full border-gray-light outline-none focus:border-gray p-3 rounded-lg">
               <p v-show="!valid" class="text-xs ml-1 text-orange">Введите корректный Email !</p>
-              <button type="submit" class="transition w-full mt-2 justify-center hover:-translate-y-1 active:scale-110 rounded-2xl outline-none text-white p-3 flex  gap-3 bg-green">Оформить заказ<img src="/arrow-next.svg" alt="ArrowBack" class=""></button>
+              <button type="submit" class="transition w-full mt-2 justify-center hover:-translate-y-1 active:scale-110 rounded-2xl outline-none text-white p-3 flex  gap-3 bg-green">Оформить заказ<img src="./arrow-next.svg" alt="ArrowBack" class=""></button>
             </form>
 
             </div>
             <div v-if="$store.state.orderCheck" class="flex flex-col justify-center h-full w-full items-center gap-3 mb-16">
-              <img src="/order-success-icon.png" class="h-1/4 w-1/2 mb-2" alt="Order Success">
+              <img src="./order-success-icon.png" class="h-1/4 w-1/2 mb-2" alt="Order Success">
               <h2 class="text-2xl font-bold text-green">Заказ оформлен!</h2>
               <p class="text-gray text-center">Ваш заказ {{ $store.getters.generateIdOrder }} оформлен и будет передан в обработку!</p>
             </div>
