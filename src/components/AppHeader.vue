@@ -1,7 +1,7 @@
 <template>
     <header class="2xl:px-11 xl:px-9 lg:px-7 px-3 py-11 sm:py-6 border-b border-gray-light">
         <div class="flex gap-3 items-center">
-            <img src="logo.png" class="2xl:w-auto sm:w-14 w-12" alt="Logotype">
+            <RouterLink to="/"><img src="logo.png" class="2xl:w-auto sm:w-14 w-12" alt="Logotype"></RouterLink>
             <div class="mr-auto pointer-events-none">
                 <h1 class="2xl:text-2xl xl:text-xl lg:text-lg font-bold uppercase">Step By Step</h1>
                 <span class="text-sm text-gray">Магазин лучших кроссовок</span>
