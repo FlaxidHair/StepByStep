@@ -14,7 +14,8 @@ export default new Vuex.Store({
     isShowCart: false,
     userIdCookie: null,
     orderCheck: false,
-    generateId: 0
+    generateId: 0,
+    emailUser: ''
   },
   getters: {
     cartMoney (state) {
@@ -75,6 +76,7 @@ export default new Vuex.Store({
     getOrder (state) {
       const data = this.dispatch('addOrder')
       if (data) {
+        state.emailUser = ''
         state.orderCheck = true
         state.cartItems = []
         localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
@@ -94,7 +96,7 @@ export default new Vuex.Store({
       )
     },
     async addOrder ({ _, state }) {
-      const data = await axios.post('https://6a334d4f8b40d716.mokky.dev/StepByStepOrders', { items: state.cartItems, userId: state.userIdCookie })
+      const data = await axios.post('https://6a334d4f8b40d716.mokky.dev/StepByStepOrders', { items: state.cartItems, userId: state.userIdCookie, email: state.emailUser })
       return data
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="w-4/5 m-auto bg-white rounded-xl shadow-xl mt-10">
+  <div id="app" class="w-4/5 m-auto bg-white rounded-xl shadow-xl my-10">
   <Drawer></Drawer>
     <Header></Header>
     <router-view></router-view>
