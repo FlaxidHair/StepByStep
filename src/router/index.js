@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import CardList from '../components/AppCardList.vue'
-import Favorites from '../components/AppFavoriteItems.vue'
+import CardList from '../views/AppCardList.vue'
+import Favorites from '../views/AppFavoriteItems.vue'
 Vue.use(VueRouter)
 
 const routes = [

@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import FilterComponent from './AppFilter.vue'
+import FilterComponent from '../components/AppFilter.vue'
 export default {
   components: {
     FilterComponent
