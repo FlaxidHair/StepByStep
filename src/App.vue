@@ -31,7 +31,7 @@ export default {
       this.$store.state.items = snap.data
     },
     generateSessionId () {
-      return 'session-' + Math.random().toString(36).substr(2, 9)
+      return Math.random().toString(36).substr(2, 9)
     },
     setCookie (name, value, days) {
       const expires = new Date(Date.now() + days * 864e5).toUTCString()
@@ -57,6 +57,7 @@ export default {
   mounted () {
     this.$store.dispatch('showInfo')
     this.setCookie()
+    this.$store.dispatch('getUserOrder')
   }
 }
 </script>

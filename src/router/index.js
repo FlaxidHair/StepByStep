@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import CardList from '../views/AppCardList.vue'
 import Favorites from '../views/AppFavoriteItems.vue'
+import MyOrder from '../views/AppMyOrder.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -14,6 +16,11 @@ const routes = [
     path: '/Favorites',
     name: 'favorites',
     component: Favorites
+  },
+  {
+    path: '/MyOrder',
+    name: 'MyOrder',
+    component: MyOrder
   }
 ]
 

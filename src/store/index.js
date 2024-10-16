@@ -7,15 +7,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     cartMoney: 0,
+    generateId: 0,
     items: [],
     itemsFavorite: [],
-    cartItems: JSON.parse(localStorage.getItem('cartItems')) || [],
+    userOrders: [],
+    allOrderUser: [],
     optionsFilter: [{ title: 'По названию', value: 'name' }, { title: 'По цене (дешевые)', value: 'price' }, { title: 'По цене (дорогие)', value: '-price' }],
-    isShowCart: false,
+    cartItems: JSON.parse(localStorage.getItem('cartItems')) || [],
     userIdCookie: null,
+    isShowCart: false,
     orderCheck: false,
-    generateId: 0,
-    emailUser: ''
+    emailUser: '',
+    quantity: ''
   },
   getters: {
     cartMoney (state) {
@@ -44,11 +47,24 @@ export default new Vuex.Store({
     },
     generateIdOrder (state) {
       return '#' + Math.floor(Math.random() * 1000) + state.generateId
+    },
+    getUserOrders (state) {
+      state.userOrders.forEach((el) => {
+        el.items.forEach((element) => {
+          state.allOrderUser.push(element)
+        })
+      })
+      const table = {}
+      const result = state.allOrderUser.filter(({ id }) => (!table[id] && (table[id] = 1)))
+      return result
     }
   },
   mutations: {
     SET_ITEMS (state, items) {
-      state.items = items
+      state.items = items || []
+    },
+    SET_ORDERS (state, orders) {
+      state.userOrders = orders || []
     },
     openCart (state) {
       state.isShowCart = !state.isShowCart
@@ -97,7 +113,12 @@ export default new Vuex.Store({
     },
     async addOrder ({ _, state }) {
       const data = await axios.post('https://6a334d4f8b40d716.mokky.dev/StepByStepOrders', { items: state.cartItems, userId: state.userIdCookie, email: state.emailUser })
+      this.dispatch('getUserOrder')
       return data
+    },
+    async getUserOrder ({ _, state }) {
+      const snap = await axios.get(`https://6a334d4f8b40d716.mokky.dev/StepByStepOrders?userId=${state.userIdCookie}`)
+      this.commit('SET_ORDERS', snap.data)
     }
   }
 })
